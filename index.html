@@ -245,7 +245,6 @@
                 const title = tableTitle.value;
                 const columns = tableColumns.value.split(',').map(col => col.trim());
                 const tableHTML = `
-                    <div class="container mt-5">
                         <h2>${title}</h2>
                         <a href="#" class="btn btn-success mb-3">Novo Registro</a>
                         <table class="table table-hover table-striped">
@@ -269,7 +268,6 @@
                                 `).join('')}
                             </tbody>
                         </table>
-                    </div>
                 `;
                 tablePreview.innerHTML = tableHTML;
                 generatedTableCode.value = tableHTML;
