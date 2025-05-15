@@ -127,9 +127,7 @@
                   >
                 </div>
                 <div class="mb-3 form-check form-size" style="display: none">
-                  <label for="field-size" class="form-label"
-                    >Tamanho (colunas 1-12)</label
-                  >
+                  <label for="field-size" class="form-label">Tamanho (colunas 1-12)</label>
                   <input
                     type="number"
                     id="field-size"
@@ -362,12 +360,31 @@
 
         // Gera o código do formulário
         generateCodeButton.addEventListener("click", () => {
+          const formPreview = document.getElementById('form-preview').innerHTML;
+          const title = document.getElementById('form-page-title').value;
+          const includeBootstrap = document.getElementById('form-bootstrap-import').checked;
           const formHTML = `
           <form method="post">
-            ${formPreview.innerHTML}
+            ${formPreview}
             <button type="submit" class="btn btn-primary">Enviar</button>
           </form>
         `;
+          let code = `<h1>${title}</h1>\n<form method="post">\n${formHTML}\n<button type="submit" class="btn btn-primary">Enviar</button>\n</form>`;
+          if (includeBootstrap) {
+            code = `<!doctype html>
+              <html lang="en">
+              <head>
+                <meta charset="utf-8">
+                <meta name="viewport" content="width=device-width, initial-scale=1">
+                <title>Bootstrap demo</title>
+                <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4Q6Gf2aSP4eDXB8Miphtr37CMZZQ5oXLH2yaXMJ2w8e2ZtHTl7GptT4jmndRuHDT" crossorigin="anonymous">
+              </head>
+              <body>
+              ${code}
+              <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/js/bootstrap.bundle.min.js" integrity="sha384-j1CDi7MgGQ12Z7Qab0qlWQ/Qqz24Gc6BM0thvEMVjHnfYGF0rmFCozFSxQBxwHKO" crossorigin="anonymous"></script>
+              </body>
+              </html>`;
+          }
           generatedCode.value = formHTML;
         });
 
