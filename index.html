@@ -17,12 +17,24 @@
       .tab-content {
         margin-top: 2rem;
       }
+      .note {
+        font-size: 0.95rem;
+        background: #f8f9fa;
+        border: 1px solid #e9ecef;
+        border-radius: .5rem;
+        padding: .75rem 1rem;
+      }
+      .codebox {
+        width: 100%;
+        min-height: 220px;
+        font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      }
     </style>
   </head>
   <body>
     <div class="container mt-5">
       <h1 class="mb-4">
-        Gerador de Formulários e Tabelas para CRUDs com Bootstrap 5.3.0
+        Gerador de Formulários, Tabelas e Navbar para CRUDs com Bootstrap 5.3.0
       </h1>
       <h2 class="mb-2">Vanessa dos Anjos Borges</h2>
       <h3 class="mb-2">Contato: vanessa.borges2@fatec.sp.gov.br</h3>
@@ -44,6 +56,15 @@
             data-bs-toggle="tab"
             href="#table-generator"
             >Tabelas</a
+          >
+        </li>
+        <li class="nav-item">
+          <a
+            class="nav-link"
+            id="navbar-tab"
+            data-bs-toggle="tab"
+            href="#navbar-generator"
+            >Navbar</a
           >
         </li>
       </ul>
@@ -166,7 +187,7 @@
             </button>
             <textarea
               id="generated-code"
-              class="form-control"
+              class="form-control codebox"
               rows="10"
               readonly
             ></textarea>
@@ -210,7 +231,7 @@
             <div id="table-preview" class="border p-3 bg-light"></div>
             <textarea
               id="generated-table-code"
-              class="form-control mt-3"
+              class="form-control codebox mt-3"
               rows="10"
               readonly
             ></textarea>
@@ -222,13 +243,117 @@
             </button>
           </div>
         </div>
+
+        <!-- Gerador de Navbar -->
+        <div class="tab-pane fade" id="navbar-generator">
+          <div class="p-3 border rounded">
+            <h4>Configuração da Navbar</h4>
+
+            <div class="note mb-3">
+              <strong>Como informar a hierarquia (uma linha por item):</strong>
+              <ul class="mb-2">
+                <li><code>Item</code> → link simples.</li>
+                <li><code>Item &gt;</code> → cria um <em>dropdown</em>; liste as opções do dropdown nas linhas seguintes iniciando com <code>-</code>.</li>
+              </ul>
+              <div>Exemplo:</div>
+              <pre class="mb-0" style="white-space:pre-wrap;">Início
+Cadastros &gt;
+- Clientes
+- Produtos
+Relatórios &gt;
+- Vendas
+- Estoque
+Sobre</pre>
+              <small class="text-muted d-block mt-1">Observação: suporta apenas <strong>um nível</strong> de dropdown (limitação do Bootstrap 5).</small>
+            </div>
+
+            <div class="row g-3">
+              <div class="col-lg-6">
+                <label for="navbar-hierarchy" class="form-label">Hierarquia da Navbar</label>
+                <textarea id="navbar-hierarchy" class="form-control" rows="10" placeholder="Início&#10;Cadastros &gt;&#10;- Clientes&#10;- Produtos&#10;Relatórios &gt;&#10;- Vendas&#10;- Estoque&#10;Sobre"></textarea>
+              </div>
+              <div class="col-lg-6">
+                <div class="mb-3">
+                  <label for="navbar-brand" class="form-label">Texto da Marca (Brand)</label>
+                  <input type="text" id="navbar-brand" class="form-control" placeholder="Minha Aplicação" />
+                </div>
+
+                <div class="mb-3">
+                  <label for="navbar-theme" class="form-label">Tema</label>
+                  <select id="navbar-theme" class="form-select">
+                    <option value="light">Claro (bg-light navbar-light)</option>
+                    <option value="dark">Escuro (bg-dark navbar-dark)</option>
+                    <option value="primary">Primário (bg-primary navbar-dark)</option>
+                  </select>
+                </div>
+
+                <div class="mb-3">
+                  <label for="navbar-expand" class="form-label">Breakpoint de Expansão</label>
+                  <select id="navbar-expand" class="form-select">
+                    <option value="lg">navbar-expand-lg (padrão)</option>
+                    <option value="md">navbar-expand-md</option>
+                    <option value="sm">navbar-expand-sm</option>
+                    <option value="xl">navbar-expand-xl</option>
+                    <option value="xxl">navbar-expand-xxl</option>
+                    <option value="none">Sem expansão (sempre colapsada)</option>
+                  </select>
+                </div>
+
+                <div class="mb-3">
+                  <label for="navbar-container" class="form-label">Largura do Container</label>
+                  <select id="navbar-container" class="form-select">
+                    <option value="container">container</option>
+                    <option value="container-fluid">container-fluid</option>
+                  </select>
+                </div>
+
+                <div class="mb-3">
+                  <label for="navbar-position" class="form-label">Posicionamento/Fixação</label>
+                  <select id="navbar-position" class="form-select">
+                    <option value="">Sem fixação</option>
+                    <option value="sticky-top">sticky-top</option>
+                    <option value="fixed-top">fixed-top</option>
+                    <option value="fixed-bottom">fixed-bottom</option>
+                  </select>
+                </div>
+
+                <div class="mb-3 form-check">
+                  <input type="checkbox" class="form-check-input" id="navbar-bootstrap-import">
+                  <label class="form-check-label" for="navbar-bootstrap-import">Adicionar importações do Bootstrap</label>
+                </div>
+
+                <button id="generate-navbar" class="btn btn-success w-100">Gerar Navbar</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Pré-visualização e código da navbar -->
+          <div class="mt-4">
+            <h4>Pré-visualização da Navbar</h4>
+            <div id="navbar-preview" class="border p-3 bg-light"></div>
+            <textarea
+              id="generated-navbar-code"
+              class="form-control codebox mt-3"
+              rows="10"
+              readonly
+            ></textarea>
+            <button
+              id="copy-navbar-code"
+              class="btn btn-secondary w-100 mt-2 mb-5"
+            >
+              Copiar Código da Navbar
+            </button>
+          </div>
+        </div>
       </div>
     </div>
 
+    <!-- Bootstrap Bundle -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
     <script>
       document.addEventListener("DOMContentLoaded", () => {
+        // ---------------------- FORM ----------------------
         const fieldType = document.getElementById("field-type");
         const fieldLabel = document.getElementById("field-label");
         const fieldId = document.getElementById("field-id");
@@ -246,13 +371,12 @@
           formSize.style.display = fieldInline.checked ? "block" : "none";
         });
 
-        // Exibe ou oculta as opções de seleção conforme o tipo escolhido
+        // Exibe/oculta as opções de seleção conforme o tipo
         fieldType.addEventListener("change", () => {
           fieldOptions.style.display =
             fieldType.value === "select" ? "block" : "none";
         });
 
-        // Função para limpar os campos do configurador após adicionar um campo
         function clearConfiguratorFields() {
           fieldType.value = "text";
           fieldLabel.value = "";
@@ -280,7 +404,6 @@
 
           let fieldHTML = "";
 
-          // Geração do HTML do campo com base no tipo selecionado
           switch (type) {
             case "text":
             case "number":
@@ -324,6 +447,7 @@
             case "select":
               const options = selectOptions.value
                 .split(",")
+                .filter(opt => opt.trim() !== "")
                 .map(
                   (opt) =>
                     `<option value="${opt.trim()}">${opt.trim()}</option>`
@@ -338,9 +462,7 @@
               break;
           }
 
-          // Adiciona o campo na pré-visualização
           if (inline) {
-            // Verifica se já existe um container de linha para campos inline
             let inlineRow = formPreview.querySelector(".inline-row:last-child");
             if (!inlineRow) {
               inlineRow = document.createElement("div");
@@ -361,25 +483,24 @@
           clearConfiguratorFields();
         });
 
-        // Gera o código do formulário
         generateCodeButton.addEventListener("click", () => {
-          const formPreview = document.getElementById('form-preview').innerHTML;
+          const _formPreview = document.getElementById('form-preview').innerHTML;
           const title = document.getElementById('form-page-title').value;
           const includeBootstrap = document.getElementById('form-bootstrap-import').checked;
           const script = `\n<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/js/bootstrap.bundle.min.js" integrity="sha384-j1CDi7MgGQ12Z7Qab0qlWQ/Qqz24Gc6BM0thvEMVjHnfYGF0rmFCozFSxQBxwHKO" crossorigin="anonymous"><\/script>\n`;
           
-          let code = `<h1>${title}</h1>\n<form method="post">\n${formPreview}\n<button type="submit" class="btn btn-primary">Enviar</button>\n</form>`;
+          let code = `<h1>${title}</h1>\n<form method="post">\n${_formPreview}\n<button type="submit" class="btn btn-primary">Enviar</button>\n</form>`;
           
           if (includeBootstrap) {
             code = '<!doctype html>\n'+
-              '<html lang="en">\n'+
+              '<html lang="pt-BR">\n'+
               '<head>\n'+
                 '<meta charset="utf-8">\n'+
                 '<meta name="viewport" content="width=device-width, initial-scale=1">\n'+
                 '<title>'+title+'</title>\n'+
                 '<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" >\n'+
               '</head>\n'+
-              '<body> \n<div class="container">\n'+
+              '<body> \n<div class="container py-3">\n'+
               code +
               script +
               '</div>\n</body>\n'+
@@ -388,21 +509,20 @@
           generatedCode.value = code;
         });
 
-        // Gerador de Tabelas
+        // ---------------------- TABLE ----------------------
         const tableTitle = document.getElementById("table-title");
         const tableColumns = document.getElementById("table-columns");
         const generateTableButton = document.getElementById("generate-table");
         const tablePreview = document.getElementById("table-preview");
-        const generatedTableCode = document.getElementById(
-          "generated-table-code"
-        );
+        const generatedTableCode = document.getElementById("generated-table-code");
 
         generateTableButton.addEventListener("click", () => {
           const includeBootstrap = document.getElementById('table-bootstrap-import').checked;
           const title = tableTitle.value;
           const columns = tableColumns.value
             .split(",")
-            .map((col) => col.trim());
+            .map((col) => col.trim())
+            .filter(col => col.length);
           const tableHTML = `
           <h2>${title}</h2>
           <a href="#" class="btn btn-success mb-3">Novo Registro</a>
@@ -421,9 +541,9 @@
                 <tr>
                   <td>${i + 1}</td>
                   ${columns.map(() => `<td>Exemplo</td>`).join("")}
-                  <td>
-                    <a href="#" class="btn btn-warning">Editar</a>
-                    <a href="#" class="btn btn-info">Consultar</a>
+                  <td class="d-flex gap-2">
+                    <a href="#" class="btn btn-sm btn-warning">Editar</a>
+                    <a href="#" class="btn btn-sm btn-info">Consultar</a>
                   </td>
                 </tr>
               `
@@ -438,14 +558,14 @@
           let code = tableHTML;
           if (includeBootstrap) {
             code = '<!doctype html>\n'+
-              '<html lang="en">\n'+
+              '<html lang="pt-BR">\n'+
               '<head>\n'+
                 '<meta charset="utf-8">\n'+
                 '<meta name="viewport" content="width=device-width, initial-scale=1">\n'+
                 '<title>'+title+'</title>\n'+
                 '<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" >\n'+
               '</head>\n'+
-              '<body> \n <div class="container"> \n'+
+              '<body> \n <div class="container py-3"> \n'+
                 tableHTML + '\n' +
               script + '\n' +
               '</div>\n</body>\n'+
@@ -454,40 +574,169 @@
           generatedTableCode.value = code;
         });
 
-        // Função para copiar o código para a área de transferência
+        // ---------------------- NAVBAR ----------------------
+        const navbarHierarchy = document.getElementById('navbar-hierarchy');
+        const navbarTheme = document.getElementById('navbar-theme');
+        const navbarExpand = document.getElementById('navbar-expand');
+        const navbarContainer = document.getElementById('navbar-container');
+        const navbarPosition = document.getElementById('navbar-position');
+        const navbarBrand = document.getElementById('navbar-brand');
+        const navbarPreview = document.getElementById('navbar-preview');
+        const generatedNavbarCode = document.getElementById('generated-navbar-code');
+        const includeNavbarBootstrap = document.getElementById('navbar-bootstrap-import');
+        const generateNavbarButton = document.getElementById('generate-navbar');
+        const copyNavbarButton = document.getElementById('copy-navbar-code');
+
+        function parseNavbarHierarchy(text) {
+          const lines = text.split('\n').map(l => l.trim()).filter(Boolean);
+          const items = [];
+          let i = 0;
+          while (i < lines.length) {
+            const line = lines[i];
+
+            if (line.startsWith('-')) {
+              // linha órfã de subitem (sem pai) -> ignora
+              i++;
+              continue;
+            }
+
+            if (line.endsWith('>')) {
+              const title = line.replace(/>+$/, '').trim();
+              const children = [];
+              i++;
+              while (i < lines.length && lines[i].trim().startsWith('-')) {
+                const childTitle = lines[i].trim().replace(/^-+/, '').trim();
+                if (childTitle) children.push({ title: childTitle });
+                i++;
+              }
+              items.push({ title, children });
+            } else {
+              items.push({ title: line });
+              i++;
+            }
+          }
+          return items;
+        }
+
+        function themeClasses(theme) {
+          if (theme === 'dark') return { nav: 'navbar-dark bg-dark', link: 'text-white' };
+          if (theme === 'primary') return { nav: 'navbar-dark bg-primary', link: 'text-white' };
+          return { nav: 'navbar-light bg-light', link: '' }; // light
+        }
+
+        function expandClass(expand) {
+          if (expand === 'none') return '';
+          return `navbar-expand-${expand}`;
+        }
+
+        function buildNavbarHTML(opts) {
+          const { brand, items, theme, expand, container, position } = opts;
+          const t = themeClasses(theme);
+          const exp = expandClass(expand);
+          const pos = position ? ` ${position}` : '';
+          const navClasses = `navbar ${exp} ${t.nav}${pos}`;
+          const containerClass = container;
+
+          const menuHTML = items.map((it, idx) => {
+            if (it.children && it.children.length) {
+              const id = `dropdown${idx+1}`;
+              const children = it.children.map(c => 
+                `<li><a class="dropdown-item" href="#">${c.title}</a></li>`
+              ).join('\n');
+              return `
+<li class="nav-item dropdown">
+  <a class="nav-link dropdown-toggle" href="#" id="${id}" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    ${it.title}
+  </a>
+  <ul class="dropdown-menu" aria-labelledby="${id}">
+    ${children}
+  </ul>
+</li>`;
+            } else {
+              return `
+<li class="nav-item">
+  <a class="nav-link" aria-current="page" href="#">${it.title}</a>
+</li>`;
+            }
+          }).join('\n');
+
+          return `
+<nav class="${navClasses}">
+  <div class="${containerClass}">
+    <a class="navbar-brand" href="#">${brand || 'Brand'}</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Alternar navegação">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        ${menuHTML}
+      </ul>
+    </div>
+  </div>
+</nav>`.trim();
+        }
+
+        generateNavbarButton.addEventListener('click', () => {
+          const items = parseNavbarHierarchy(navbarHierarchy.value || '');
+          const html = buildNavbarHTML({
+            brand: navbarBrand.value,
+            items,
+            theme: navbarTheme.value,
+            expand: navbarExpand.value,
+            container: navbarContainer.value,
+            position: navbarPosition.value
+          });
+
+          // preview
+          navbarPreview.innerHTML = html;
+
+          // código gerado
+          const include = includeNavbarBootstrap.checked;
+          const title = (navbarBrand.value || 'Navbar');
+          const imports = '<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">';
+          const script = '<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/js/bootstrap.bundle.min.js" integrity="sha384-j1CDi7MgGQ12Z7Qab0qlWQ/Qqz24Gc6BM0thvEMVjHnfYGF0rmFCozFSxQBxwHKO" crossorigin="anonymous"><\/script>';
+
+          let code = html;
+          if (include) {
+            code = '<!doctype html>\n' +
+              '<html lang="pt-BR">\n<head>\n<meta charset="utf-8">\n<meta name="viewport" content="width=device-width, initial-scale=1">\n' +
+              `<title>${title}</title>\n${imports}\n</head>\n<body>\n` +
+              `<div class="${navbarContainer.value} py-3">\n` + html + '\n</div>\n' +
+              `${script}\n</body>\n</html>`;
+          }
+          generatedNavbarCode.value = code;
+        });
+
+        // ---------------------- COPY HELPERS ----------------------
         const copyFormCodeButton = document.getElementById("copy-form-code");
         const copyTableCodeButton = document.getElementById("copy-table-code");
-
-        function copyToClipboard(textarea, button) {
+        function copyToClipboard(textarea, button, originalText) {
           navigator.clipboard
             .writeText(textarea.value)
             .then(() => {
               button.textContent = "Copiado!";
               setTimeout(() => {
-                button.textContent =
-                  button.id === "copy-form-code"
-                    ? "Copiar Código"
-                    : "Copiar Código da Tabela";
+                button.textContent = originalText;
               }, 2000);
             })
             .catch((err) => {
               console.error("Erro ao copiar o texto: ", err);
               button.textContent = "Erro!";
               setTimeout(() => {
-                button.textContent =
-                  button.id === "copy-form-code"
-                    ? "Copiar Código"
-                    : "Copiar Código da Tabela";
+                button.textContent = originalText;
               }, 2000);
             });
         }
-
         copyFormCodeButton.addEventListener("click", () => {
-          copyToClipboard(generatedCode, copyFormCodeButton);
+          copyToClipboard(generatedCode, copyFormCodeButton, "Copiar Código");
+        });
+        copyTableCodeButton.addEventListener("click", () => {
+          copyToClipboard(generatedTableCode, copyTableCodeButton, "Copiar Código da Tabela");
         });
 
-        copyTableCodeButton.addEventListener("click", () => {
-          copyToClipboard(generatedTableCode, copyTableCodeButton);
+        const copyNavbarCodeButton = document.getElementById("copy-navbar-code");
+        copyNavbarCodeButton.addEventListener("click", () => {
+          copyToClipboard(generatedNavbarCode, copyNavbarCodeButton, "Copiar Código da Navbar");
         });
       });
     </script>
