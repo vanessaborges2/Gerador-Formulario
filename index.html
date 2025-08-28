@@ -700,8 +700,8 @@ Sobre</pre>
           if (include) {
             code = '<!doctype html>\n' +
               '<html lang="pt-BR">\n<head>\n<meta charset="utf-8">\n<meta name="viewport" content="width=device-width, initial-scale=1">\n' +
-              `<title>${title}</title>\n${imports}\n</head>\n<body>\n` +
-              `<div class="${navbarContainer.value} py-3">\n` + html + '\n</div>\n' +
+              `<title>${title}</title>\n${imports}\n</head>\n<body>\n` + html +
+              `\n<div class="${navbarContainer.value} py-3">\n</div>\n` +
               `${script}\n</body>\n</html>`;
           }
           generatedNavbarCode.value = code;
